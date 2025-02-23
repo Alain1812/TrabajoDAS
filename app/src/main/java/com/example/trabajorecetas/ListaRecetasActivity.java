@@ -88,11 +88,11 @@ public class ListaRecetasActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == AÑADIR_RECETA_REQUEST && resultCode == RESULT_OK) {
+        if ((requestCode == AÑADIR_RECETA_REQUEST || requestCode == EDITAR_RECETA_REQUEST) && resultCode == RESULT_OK) {
             // Si la receta fue añadida, recargamos la lista
             if (data != null && data.getBooleanExtra("receta_guardada", false)) {
                 cargarRecetas();
-                adapter.notifyDataSetChanged(); // Notificar que los datos han cambiado
+                adapter.notifyDataSetChanged();
             }
         }
     }

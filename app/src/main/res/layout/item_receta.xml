@@ -41,29 +41,32 @@
             android:paddingTop="8dp">
 
             <ImageButton
-                android:id="@+id/btn_editar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_edit"
-                android:text="Editar"
-                android:contentDescription="Editar" />
+            android:id="@+id/btn_editar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/edit_icon"
+            android:contentDescription="Editar"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_marginEnd="8dp"/>
 
             <ImageButton
-                android:id="@+id/btn_borrar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_delete"
-                android:text="Borrar"
-                android:contentDescription="Borrar" />
+            android:id="@+id/btn_borrar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/delete_icon"
+            android:contentDescription="Borrar"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_marginEnd="8dp"/>
 
             <ImageButton
-                android:id="@+id/btn_favorito"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_favorite"
-                android:text="Favorito"
-                android:contentDescription="Favorito" />
+            android:id="@+id/btn_favorito"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/favorite_icon"
+            android:contentDescription="Favorito"
+            android:background="?android:attr/selectableItemBackground"/>
         </LinearLayout>
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

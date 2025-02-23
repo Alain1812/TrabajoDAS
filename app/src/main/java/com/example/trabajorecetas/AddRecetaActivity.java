@@ -1,6 +1,7 @@
 package com.example.trabajorecetas;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.trabajorecetas.BaseDeDatos.ImageConverter;
 import com.example.trabajorecetas.BaseDeDatos.Receta;
@@ -23,10 +26,13 @@ import java.io.IOException;
 public class AddRecetaActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 2;
     private EditText etNombre, etIngredientes, etPasos;
     private ImageView ivImagen;
     private Bitmap imagenBitmap = null;
     private RecetaDatabase db;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +45,10 @@ public class AddRecetaActivity extends AppCompatActivity {
         ivImagen = findViewById(R.id.iv_imagen);
         Button btnSeleccionarImagen = findViewById(R.id.btn_seleccionar_imagen);
         Button btnGuardar = findViewById(R.id.btn_guardar);
-
+        Button btnTomarFoto = findViewById(R.id.btn_tomar_foto);
         db = RecetaDatabase.getInstance(this);
+
+        btnTomarFoto.setOnClickListener(v -> abrirCamara());
 
         btnSeleccionarImagen.setOnClickListener(v -> abrirGaleria());
 
@@ -52,9 +60,21 @@ public class AddRecetaActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
+    private void abrirCamara() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }else{
+            Toast.makeText(this, "No se puede abrir la cámara", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             Uri imageUri = data.getData();
             try {
@@ -64,8 +84,14 @@ public class AddRecetaActivity extends AppCompatActivity {
                 e.printStackTrace();
                 Toast.makeText(this, "Error al cargar la imagen", Toast.LENGTH_SHORT).show();
             }
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            ivImagen.setImageBitmap(imageBitmap);
+            this.imagenBitmap = imageBitmap;
         }
     }
+
 
     private void guardarReceta() {
         String nombre = etNombre.getText().toString().trim();
@@ -95,7 +121,7 @@ public class AddRecetaActivity extends AppCompatActivity {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("receta_guardada", true); // Enviamos el estado de la receta guardada
                 setResult(RESULT_OK, resultIntent);
-                finish(); // Finalizamos la actividad
+                finish();
             });
         }).start();
     }
