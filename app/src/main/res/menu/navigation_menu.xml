@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_espanol"
+        android:title="@string/espanol" />
+    <item
+        android:id="@+id/nav_ingles"
+        android:title="@string/ingles" />
+    <item
+        android:id="@+id/nav_aleman"
+        android:title="@string/aleman" />
+    <item
+        android:id="@+id/nav_frances"
+        android:title="@string/frances" />
+    <item
+        android:id="@+id/nav_italiano"
+        android:title="@string/italiano" />
+    <item
+        android:id="@+id/nav_euskera"
+        android:title="@string/euskera" />
+</menu>

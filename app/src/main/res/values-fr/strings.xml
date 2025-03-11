@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Recettes</string>
+    <string name="navigation_drawer_open">Ouvrir le menu</string>
+    <string name="navigation_drawer_close">Fermer le menu</string>
+    <string name="foto">Prendre une photo</string>
+    <string name="titulo_borrar_receta">Confirmer la suppression</string>
+    <string name="mensaje_borrar_receta">Êtes-vous sûr de vouloir supprimer cette recette ?</string>
+    <string name="boton_si">Oui</string>
+    <string name="boton_no">Non</string>
+    <string name="titulo_salir">Confirmer la sortie</string>
+    <string name="mensaje_salir">Êtes-vous sûr de vouloir quitter l application ?</string>
+    <string name="Nombre_receta">Nom de la recette</string>
+    <string name="Ingredientes">Ingrédients</string>
+    <string name="Pasos">Étapes de la recette</string>
+    <string name="Tomar_foto">Prendre une photo</string>
+    <string name="Elegir_imagen">Choisir une image</string>
+    <string name="Guardar_receta">Enregistrer la recette</string>
+    <string name="volver">Retour</string>
+    <string name="Modo_claro">Mode clair</string>
+    <string name="Modo_oscuro">Mode sombre</string>
+    <string name="cambio_idioma">Langue changée en français</string>
+    <string name="receta_eliminada">Recette supprimée</string>
+    <string name="receta_favoritos">Recette dans les favoris</string>
+    <string name="error_camara">Erreur lors de l ouverture de la caméra</string>
+    <string name="error_galeria">Erreur lors de l ouverture de la galerie</string>
+    <string name="rellenar_campos">Veuillez remplir tous les champs</string>
+    <string name="descarga_completa">Téléchargement complet</string>
+    <string name="mensaje_descarga">Votre recette a été enregistrée dans le dossier Téléchargements</string>
+    <string name="listado_recetas">Liste des recettes</string>
+    <string name="listado_recetas_favoritas">Liste des recettes favorites</string>
+    <string name="espanol">Espagnol</string>
+    <string name="ingles">Anglais</string>
+    <string name="aleman">Allemand</string>
+    <string name="frances">Français</string>
+    <string name="italiano">Italien</string>
+    <string name="euskera">Basque</string>
+
+
+</resources>

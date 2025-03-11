@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name"> Recipes</string>
+    <string name="navigation_drawer_open">Open menu</string>
+    <string name="navigation_drawer_close">Close menu</string>
+    <string name="foto">Take photo</string>
+    <string name="titulo_borrar_receta">Confirm deletion</string>
+    <string name="mensaje_borrar_receta">Are you sure you want to delete this recipe?</string>
+    <string name="boton_si">Yes</string>
+    <string name="boton_no">No</string>
+    <string name="titulo_salir">Confirm exit</string>
+    <string name="mensaje_salir">Are you sure you want to exit?</string>
+    <string name="Nombre_receta">Recipe name</string>
+    <string name="Ingredientes">Ingredients</string>
+    <string name="Pasos">Recipe Steps</string>
+    <string name="Tomar_foto">Take photo</string>
+    <string name="Elegir_imagen">Select image</string>
+    <string name="Guardar_receta">Save recipe</string>
+    <string name="volver">Back</string>
+    <string name="Modo_claro">Dark mode</string>
+    <string name="Modo_oscuro">Ligth mode</string>
+    <string name="cambio_idioma">Language set to english</string>
+    <string name="receta_eliminada">Recipe eliminated</string>
+    <string name="receta_favoritos">Recipe in favourites</string>
+    <string name="error_camara">Error opening the camera</string>
+    <string name="error_galeria">Error opening gallery</string>
+    <string name="rellenar_campos">Fill in all fields</string>
+    <string name="descarga_completa">Download complete</string>
+    <string name="mensaje_descarga">Your recipe has been saved in Downloads</string>
+    <string name="listado_recetas">List of recipes</string>
+    <string name="listado_recetas_favoritas">List of favorite recipes</string>
+    <string name="espanol">Spanish</string>
+    <string name="ingles">English</string>
+    <string name="aleman">German</string>
+    <string name="frances">French</string>
+    <string name="italiano">Italian</string>
+    <string name="euskera">Basque</string>
+
+
+</resources>

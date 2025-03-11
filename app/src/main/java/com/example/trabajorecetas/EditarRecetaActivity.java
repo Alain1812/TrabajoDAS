@@ -11,14 +11,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.example.trabajorecetas.BaseDeDatos.RecetaDatabase;
 import com.example.trabajorecetas.BaseDeDatos.Receta;
 import com.example.trabajorecetas.BaseDeDatos.ImageConverter;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class EditarRecetaActivity extends AppCompatActivity {
@@ -70,6 +67,13 @@ public class EditarRecetaActivity extends AppCompatActivity {
         }
 
         btnGuardar.setOnClickListener(v -> guardarReceta());
+        Button btnVolver = findViewById(R.id.btnVolver);
+        btnVolver.setOnClickListener(v -> {
+            Intent intent = new Intent(EditarRecetaActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
     }
 
     private void abrirGaleria() {
@@ -82,7 +86,7 @@ public class EditarRecetaActivity extends AppCompatActivity {
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         } else {
-            Toast.makeText(this, "No se puede abrir la cámara", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error_camara), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -93,9 +97,7 @@ public class EditarRecetaActivity extends AppCompatActivity {
 
         // Convertir la imagen a byte[]
         Bitmap bitmap = ((BitmapDrawable) ivImagen.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        receta.setImagen(stream.toByteArray());
+        receta.setImagen(ImageConverter.bitmapToByteArray(bitmap));
 
         new Thread(() -> {
             if (receta.getId() == 0) {
@@ -104,7 +106,7 @@ public class EditarRecetaActivity extends AppCompatActivity {
                 db.recetaDao().actualizar(receta);
             }
             runOnUiThread(() -> {
-                Toast.makeText(EditarRecetaActivity.this, "Receta guardada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditarRecetaActivity.this, getString(R.string.Guardar_receta), Toast.LENGTH_SHORT).show();
                 // Informar que la receta se ha guardado correctamente
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("receta_guardada", true); // Enviamos el estado de la receta guardada
@@ -129,7 +131,7 @@ public class EditarRecetaActivity extends AppCompatActivity {
                 ivImagen.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(this, "Error al cargar la imagen desde la galería", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.error_galeria), Toast.LENGTH_SHORT).show();
             }
         }
     }

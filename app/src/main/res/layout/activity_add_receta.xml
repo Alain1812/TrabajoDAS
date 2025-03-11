@@ -1,58 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="?android:attr/windowBackground">
 
+    <!-- Campo Nombre -->
     <EditText
         android:id="@+id/et_nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nombre de la receta" />
+        android:hint="@string/Nombre_receta"
+        android:background="@drawable/bg_text"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:textColor="?attr/colorOnSurface"
+        android:textColorHint="?attr/colorOutline" />
 
+    <!-- Campo Ingredientes -->
     <EditText
         android:id="@+id/et_ingredientes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ingredientes"
+        android:hint="@string/Ingredientes"
+        android:background="@drawable/bg_text"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:minHeight="100dp"
+        android:gravity="top"
         android:inputType="textMultiLine"
-        android:minHeight="100dp" />
+        android:textColor="?attr/colorOnSurface"
+        android:textColorHint="?attr/colorOutline" />
 
+    <!-- Campo Pasos -->
     <EditText
         android:id="@+id/et_pasos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Pasos de la receta"
+        android:hint="@string/Pasos"
+        android:background="@drawable/bg_text"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:minHeight="100dp"
+        android:gravity="top"
         android:inputType="textMultiLine"
-        android:minHeight="100dp" />
+        android:textColor="?attr/colorOnSurface"
+        android:textColorHint="?attr/colorOutline" />
 
-    <ImageView
-        android:id="@+id/iv_imagen"
+    <!-- Contenedor para la imagen -->
+    <androidx.cardview.widget.CardView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_placeholder" />
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp"
+        android:layout_gravity="center">
 
-    <Button
-        android:id="@+id/btn_tomar_foto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tomar Foto"
-        android:layout_marginTop="16dp" />
+        <ImageView
+            android:id="@+id/iv_imagen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_placeholder"
+            android:contentDescription="Imagen de la receta" />
+    </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/btn_seleccionar_imagen"
+    <!-- Contenedor horizontal para los botones de "Tomar Foto" y "Seleccionar Imagen" -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Seleccionar Imagen" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
 
+        <!-- Botón Tomar Foto -->
+        <Button
+            android:id="@+id/btn_tomar_foto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Tomar_foto"
+            android:background="@drawable/bg_button"
+            android:padding="12dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOutline" />
+
+        <!-- Botón Seleccionar Imagen -->
+        <Button
+            android:id="@+id/btn_seleccionar_imagen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Elegir_imagen"
+            android:background="@drawable/bg_button"
+            android:padding="12dp"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOutline" />
+    </LinearLayout>
+
+
+    <!-- Botón Guardar Receta -->
     <Button
         android:id="@+id/btn_guardar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Guardar Receta"
-        android:layout_marginTop="16dp" />
+        android:text="@string/Guardar_receta"
+        android:background="@drawable/bg_button"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        android:textColor="?attr/colorOnSurface"
+        android:textColorHint="?attr/colorOutline" />
+
+    <Button
+        android:id="@+id/btnVolver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/volver"
+        android:background="@drawable/bg_button"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        android:textColor="?attr/colorOnSurface"
+        android:textColorHint="?attr/colorOutline" />
 
 </LinearLayout>

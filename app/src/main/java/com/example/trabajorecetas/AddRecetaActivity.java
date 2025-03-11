@@ -53,6 +53,15 @@ public class AddRecetaActivity extends AppCompatActivity {
         btnSeleccionarImagen.setOnClickListener(v -> abrirGaleria());
 
         btnGuardar.setOnClickListener(v -> guardarReceta());
+
+        Button btnVolver = findViewById(R.id.btnVolver);
+        btnVolver.setOnClickListener(v -> {
+            // Volver a MainActivity
+            Intent intent = new Intent(AddRecetaActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();  // Cierra la actividad actual
+        });
+
     }
 
     private void abrirGaleria() {
@@ -65,7 +74,7 @@ public class AddRecetaActivity extends AppCompatActivity {
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }else{
-            Toast.makeText(this, "No se puede abrir la cámara", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error_camara), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -82,7 +91,7 @@ public class AddRecetaActivity extends AppCompatActivity {
                 ivImagen.setImageBitmap(imagenBitmap);
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(this, "Error al cargar la imagen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.error_galeria), Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
@@ -99,7 +108,7 @@ public class AddRecetaActivity extends AppCompatActivity {
         String pasos = etPasos.getText().toString().trim();
 
         if (nombre.isEmpty() || ingredientes.isEmpty() || pasos.isEmpty()) {
-            Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.rellenar_campos), Toast.LENGTH_SHORT).show();
             return;
         }
 

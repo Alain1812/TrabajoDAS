@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:fillViewport="true"
+    android:background="?android:attr/windowBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Campo Nombre -->
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:padding="12dp"
+            android:textColorHint="?attr/colorOutline"/>
+
+        <!-- Campo Ingredientes -->
+        <TextView
+            android:id="@+id/tvIngredientes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:minHeight="100dp"
+            android:gravity="top"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOutline" />
+
+        <!-- Campo Pasos -->
+        <TextView
+            android:id="@+id/tvPasos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:minHeight="100dp"
+            android:gravity="top"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOutline" />
+
+        <!-- Contenedor para la imagen -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/ivImagen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_placeholder"
+                android:contentDescription="Imagen de la receta"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Botón Volver -->
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Volver"
+            android:background="@drawable/bg_button"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOutline" />
+
+    </LinearLayout>
+</ScrollView>
