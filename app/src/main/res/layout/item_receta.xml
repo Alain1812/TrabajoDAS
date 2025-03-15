@@ -7,89 +7,102 @@
     app:cardElevation="6dp"
     app:cardUseCompatPadding="true">
 
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="vertical"
-android:padding="16dp">
-
-<ImageView
-    android:id="@+id/iv_receta"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:scaleType="centerCrop"
-    android:background="@drawable/rounded_corners_image"
-    android:clipToOutline="true"/>
-
-<TextView
-    android:id="@+id/tv_nombre"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textStyle="bold"
-    android:textSize="18sp"
-    android:paddingTop="8dp" />
-
-<TextView
-    android:id="@+id/tv_ingredientes"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:maxLines="2"
-    android:ellipsize="end"
-    android:textSize="14sp" />
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="end"
-    android:paddingTop="8dp">
-
-    <ImageButton
-        android:id="@+id/btn_editar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/ic_editar"
-        android:contentDescription="Editar"
-        android:layout_marginEnd="8dp"
-        app:tint="?attr/colorControlNormal" />
-
-    <ImageButton
-        android:id="@+id/btn_borrar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/ic_borrar"
-        android:contentDescription="Borrar"
-        android:layout_marginEnd="8dp"
-        app:tint="?attr/colorControlNormal" />
-
-    <ImageButton
-        android:id="@+id/btn_favorito"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/ic_favorito"
-        android:contentDescription="Favorito"
-        app:tint="?attr/colorControlNormal" />
-
-    <ImageButton
-        android:id="@+id/btn_compartir"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_compartir"
-        android:contentDescription="Compartir"
-        android:padding="8dp"
-        app:tint="?attr/colorControlNormal" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <ImageButton
-        android:id="@+id/btn_descargar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_descargar"
-        android:contentDescription="Descargar receta"
-        android:layout_margin="8dp"
-        app:tint="?attr/colorControlNormal" />
-</LinearLayout>
+        <!-- Imagen de la receta -->
+        <ImageView
+            android:id="@+id/iv_receta"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rounded_corners_image"
+            android:clipToOutline="true"/>
 
-</LinearLayout>
+        <!-- Nombre de la receta -->
+        <TextView
+            android:id="@+id/tv_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:paddingTop="8dp" />
+
+        <!-- Ingredientes de la receta -->
+        <TextView
+            android:id="@+id/tv_ingredientes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="14sp" />
+
+        <!-- Botones de la card de receta -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:paddingTop="8dp">
+
+            <!-- Boton para editar la receta -->
+            <ImageButton
+                android:id="@+id/btn_editar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_editar"
+                android:contentDescription="Editar"
+                android:layout_marginEnd="8dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                app:tint="?attr/colorControlNormal" />
+
+            <!-- Boton para borrar la receta -->
+            <ImageButton
+                android:id="@+id/btn_borrar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_borrar"
+                android:contentDescription="Borrar"
+                android:layout_marginEnd="8dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                app:tint="?attr/colorControlNormal" />
+
+            <!-- Boton para añadir o eliminar a la receta de favoritos -->
+            <ImageButton
+                android:id="@+id/btn_favorito"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_favorito"
+                android:contentDescription="Favorito"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                app:tint="?attr/colorControlNormal" />
+
+            <!-- Boton para compartir la receta -->
+            <ImageButton
+                android:id="@+id/btn_compartir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_compartir"
+                android:contentDescription="Compartir"
+                android:padding="8dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                app:tint="?attr/colorControlNormal" />
+
+            <!-- Boton para descargar la receta -->
+            <ImageButton
+                android:id="@+id/btn_descargar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_descargar"
+                android:contentDescription="Descargar receta"
+                android:layout_margin="8dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                app:tint="?attr/colorControlNormal" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
-

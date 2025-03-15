@@ -19,15 +19,19 @@ public class BorrarRecetaDialog extends DialogFragment {
     @NonNull
     @Override
     public android.app.Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        // Constructor del diálogo usando AlertDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        // Cargar textos desde recursos para facilitar la localización
         String titulo = getString(R.string.titulo_borrar_receta);
         String mensaje = getString(R.string.mensaje_borrar_receta);
         String botonSi = getString(R.string.boton_si);
         String botonNo = getString(R.string.boton_no);
 
+        // Configurar el diálogo
         builder.setTitle(titulo)
                 .setMessage(mensaje)
+                // Botón de confirmación: ejecuta la acción de borrado
                 .setPositiveButton(botonSi, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -37,6 +41,7 @@ public class BorrarRecetaDialog extends DialogFragment {
                         }
                     }
                 })
+                // Botón de cancelación: cierra el diálogo sin acciones
                 .setNegativeButton(botonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -45,9 +50,11 @@ public class BorrarRecetaDialog extends DialogFragment {
                     }
                 });
 
-        return builder.create(); // Devuelve el diálogo creado
+        // Construye y devuelve el diálogo configurado
+        return builder.create();
     }
 
+    // Setter para el listener
     public void setOnBorrarRecetaListener(OnBorrarRecetaListener listener) {
         this.listener = listener;
     }

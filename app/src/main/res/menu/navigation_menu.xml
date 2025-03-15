@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Opciones del menú de navegación -->
+    <!-- Cambiar de idioma al español -->
     <item
         android:id="@+id/nav_espanol"
         android:title="@string/espanol" />
+
+    <!-- Cambiar de idioma al ingles -->
     <item
         android:id="@+id/nav_ingles"
         android:title="@string/ingles" />
+
+    <!-- Cambiar de idioma al aleman -->
     <item
         android:id="@+id/nav_aleman"
         android:title="@string/aleman" />
+
+    <!-- Cambiar de idioma al frances -->
     <item
         android:id="@+id/nav_frances"
         android:title="@string/frances" />
+
+    <!-- Cambiar de idioma al italiano -->
     <item
         android:id="@+id/nav_italiano"
         android:title="@string/italiano" />
+
+    <!-- Cambiar de idioma al euskera -->
     <item
         android:id="@+id/nav_euskera"
         android:title="@string/euskera" />

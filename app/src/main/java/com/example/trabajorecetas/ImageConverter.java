@@ -1,4 +1,5 @@
-package com.example.trabajorecetas.BaseDeDatos;
+package com.example.trabajorecetas;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import java.io.ByteArrayOutputStream;
@@ -15,5 +16,10 @@ public class ImageConverter {
     // Convierte un ByteArray de la base de datos en un Bitmap para mostrarlo
     public static Bitmap byteArrayToBitmap(byte[] byteArray) {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+    }
+
+    // Carga un Bitmap por defecto desde un recurso
+    public static Bitmap loadDefaultBitmap(Resources resources, int drawableId) {
+        return BitmapFactory.decodeResource(resources, drawableId);
     }
 }

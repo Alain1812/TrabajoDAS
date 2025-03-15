@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- string.xml para el euskera-->
     <string name="app_name">Errezetak</string>
     <string name="navigation_drawer_open">Menua ireki</string>
     <string name="navigation_drawer_close">Menua itxi</string>
@@ -22,6 +23,7 @@
     <string name="cambio_idioma">Hizkuntza aldatu da euskara</string>
     <string name="receta_eliminada">Errezeta ezabatuta</string>
     <string name="receta_favoritos">Errezeta gogokoetan</string>
+    <string name="receta_eliminada_favoritos">Errezeta ezabatuta gogokoetatik</string>
     <string name="error_camara">Errorea kameraren irekieran</string>
     <string name="error_galeria">Errorea galeriaren irekieran</string>
     <string name="rellenar_campos">Betetzen ez dituzun guztiak bete</string>

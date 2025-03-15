@@ -1,7 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- themes.xml para el modo claro-->
     <style name="Base.Theme.TrabajoRecetas" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
-        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlNormal">#000000</item>
         <item name="colorSurface">@color/editTextBackground</item>
         <item name="colorOnSurface">@color/textLight</item>
     </style>

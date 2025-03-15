@@ -79,6 +79,7 @@
             android:gravity="center"
             android:layout_marginTop="16dp">
 
+            <!-- Botón Tomar foto -->
             <Button
                 android:id="@+id/btn_tomar_imagen"
                 android:layout_width="wrap_content"
@@ -90,6 +91,7 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textColorHint="?attr/colorOutline" />
 
+            <!-- Botón Elegir imagen -->
             <Button
                 android:id="@+id/btn_elegir_imagen"
                 android:layout_width="wrap_content"
@@ -113,6 +115,7 @@
             android:textColor="?attr/colorOnSurface"
             android:textColorHint="?attr/colorOutline" />
 
+        <!-- Botón Volver -->
         <Button
             android:id="@+id/btnVolver"
             android:layout_width="match_parent"

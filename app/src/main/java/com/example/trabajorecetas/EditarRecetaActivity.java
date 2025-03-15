@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.trabajorecetas.BaseDeDatos.RecetaDatabase;
 import com.example.trabajorecetas.BaseDeDatos.Receta;
-import com.example.trabajorecetas.BaseDeDatos.ImageConverter;
 
 import java.io.IOException;
 
@@ -34,6 +33,7 @@ public class EditarRecetaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_receta);
 
+        // Inicialización de vistas
         etNombre = findViewById(R.id.et_nombre);
         etIngredientes = findViewById(R.id.et_ingredientes);
         etPasos = findViewById(R.id.et_pasos);
@@ -42,17 +42,21 @@ public class EditarRecetaActivity extends AppCompatActivity {
         btnElegirImagen = findViewById(R.id.btn_elegir_imagen);
         btnTomarImagen = findViewById(R.id.btn_tomar_imagen);
 
+        // Configurar listeners de botones de imagen
         btnElegirImagen.setOnClickListener(v -> abrirGaleria());
         btnTomarImagen.setOnClickListener(v -> abrirCamara());
 
+        // Obtener instancia de la base de datos Room
         db = RecetaDatabase.getInstance(this);
 
         // Obtener receta si se pasa un ID
         int recetaId = getIntent().getIntExtra("receta_id", -1);
         if (recetaId != -1) {
             new Thread(() -> {
+                // Obtener receta de la base de datos
                 receta = db.recetaDao().obtenerPorId(recetaId);
                 runOnUiThread(() -> {
+                    // Actualizar UI con datos de la receta
                     etNombre.setText(receta.getNombre());
                     etIngredientes.setText(receta.getIngredientes());
                     etPasos.setText(receta.getPasos());
@@ -66,21 +70,26 @@ public class EditarRecetaActivity extends AppCompatActivity {
             receta = new Receta("", "", "", null, false);
         }
 
+        // Configurar botón de guardado
         btnGuardar.setOnClickListener(v -> guardarReceta());
+        // Configurar botón de volver
         Button btnVolver = findViewById(R.id.btnVolver);
         btnVolver.setOnClickListener(v -> {
             Intent intent = new Intent(EditarRecetaActivity.this, MainActivity.class);
             startActivity(intent);
+            // Cierra la actividad actual
             finish();
         });
 
     }
 
+    // Metodo para abrir la galería de imágenes
     private void abrirGaleria() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
+    // Metodo para abrir la cámara
     private void abrirCamara() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -90,6 +99,7 @@ public class EditarRecetaActivity extends AppCompatActivity {
         }
     }
 
+    // Metodo para actualizar la receta
     private void guardarReceta() {
         receta.setNombre(etNombre.getText().toString());
         receta.setIngredientes(etIngredientes.getText().toString());
@@ -111,19 +121,24 @@ public class EditarRecetaActivity extends AppCompatActivity {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("receta_guardada", true); // Enviamos el estado de la receta guardada
                 setResult(RESULT_OK, resultIntent);
-                finish();// Volver a la actividad anterior
+                // Cierra la actividad actual
+                finish();
             });
         }).start();
     }
 
 
+    // Manejo de resultados de intents de imagen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // Resultado de cámara
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             ivImagen.setImageBitmap(imageBitmap);
+
+        // Resultado de galería
         } else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
             Uri imageUri = data.getData();
             try {

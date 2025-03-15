@@ -1,7 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- themes.xml para el modo oscuro-->
     <style name="Base.Theme.TrabajoRecetas" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/black</item>
-        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlNormal">#FFFFFF</item>
         <item name="colorSurface">@color/editTextBackground</item>
         <item name="colorOnSurface">@color/textLight</item>
     </style>

@@ -13,6 +13,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- Text view que indica si estas en la lista completa o la de favoritos -->
+        <TextView
+            android:id="@+id/textTituloLista"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Lista de recetas" />
+
         <!-- RecyclerView para mostrar la lista de recetas -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -32,6 +43,7 @@
 
     </LinearLayout>
 
+    <!-- Menú lateral -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

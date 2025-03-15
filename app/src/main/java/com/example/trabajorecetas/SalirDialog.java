@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog;
 
 public class SalirDialog extends DialogFragment {
 
+    // Este metodo se llama para crear el diálogo de confirmación cuando se muestra el diálogo.
     @NonNull
     @Override
     public android.app.Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -19,21 +20,24 @@ public class SalirDialog extends DialogFragment {
 
         builder.setTitle(titulo)
                 .setMessage(mensaje)
+                // Botón "Sí": al hacer clic, se cierra la actividad actual, lo que equivale a salir de la aplicación
                 .setPositiveButton(botonSi, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // Confirmar salida
-                        getActivity().finish(); // Esto cierra la actividad (la aplicación)
+                        // Cierra la actividad y en consecuencia la aplicación
+                        getActivity().finish();
                     }
                 })
+                // Botón "No": al hacer clic, simplemente se cierra el diálogo sin realizar ninguna acción
                 .setNegativeButton(botonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // No hace nada, simplemente cierra el diálogo
+                        // Cierra el diálogo sin salir de la actividad
                         dialog.dismiss();
                     }
                 });
 
-        return builder.create(); // Devuelve el diálogo creado
+        // Se crea y devuelve el AlertDialog configurado
+        return builder.create();
     }
 }

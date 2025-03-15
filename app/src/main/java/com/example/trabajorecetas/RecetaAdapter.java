@@ -1,12 +1,8 @@
 package com.example.trabajorecetas;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +10,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
@@ -33,7 +27,6 @@ import java.util.List;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import com.example.trabajorecetas.BaseDeDatos.ImageConverter;
 import com.example.trabajorecetas.BaseDeDatos.Receta;
 
 
@@ -43,6 +36,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
     private List<Receta> recetasOriginales;
     private OnItemClickListener listener;
 
+    // Constructor: inicializa las listas y asigna el listener
     public RecetaAdapter(List<Receta> recetas, OnItemClickListener listener) {
         this.recetas = recetas;
         this.recetasOriginales = new ArrayList<>(recetas);
@@ -55,6 +49,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         void onFavorito(Receta receta);
     }
 
+    // Metodo para inflar el layout del item (CardView)
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -62,21 +57,29 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
+    // Metodo para enlazar los datos de una receta con el item
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        // Obtener la receta en la posición actual
         Receta receta = recetas.get(position);
+        // Establecer el nombre y los ingredientes en los TextViews
         holder.tvNombre.setText(receta.getNombre());
         holder.tvIngredientes.setText(receta.getIngredientes());
 
+        // Convertir el byte array de la imagen a Bitmap usando la clase ImageConverter y mostrarla
         Bitmap imagen = ImageConverter.byteArrayToBitmap(receta.getImagen());
         holder.ivReceta.setImageBitmap(imagen);
 
-        holder.btnFavorito.setImageResource(receta.isFavorita() ? R.drawable.ic_favorito : R.drawable.ic_favorito);
+        // Establecer el icono de favorito según el estado de la receta
+        holder.btnFavorito.setImageResource(receta.isFavorita() ? R.drawable.ic_favorito_filled : R.drawable.ic_favorito);
 
-        // Eventos de los botones
+        // Boton editar
         holder.btnEditar.setOnClickListener(v -> listener.onEditar(receta));
+        // Boton borrar
         holder.btnBorrar.setOnClickListener(v -> listener.onBorrar(receta));
+        // Boton favorito
         holder.btnFavorito.setOnClickListener(v -> listener.onFavorito(receta));
+        // Boton compartir
         holder.btnCompartir.setOnClickListener(v -> {
             String mensaje = "¡Mira esta receta!\n\n" +
                     "🍽️ *" + receta.getNombre() + "*\n\n" +
@@ -95,7 +98,9 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
                 v.getContext().startActivity(chooser);
             }
         });
+        // Boton descargar
         holder.btnDescargar.setOnClickListener(v -> guardarArchivoTxt(receta, holder.itemView.getContext()));
+        // Al hacer clic en el item, abrir la actividad DetalleRecetaActivity
         holder.itemView.setOnClickListener(v -> {
             Context context = holder.itemView.getContext();
             Intent intent = new Intent(context, DetalleRecetaActivity.class);
@@ -106,6 +111,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
     }
 
+    // Metodo que guarda la imagen en un archivo temporal y retorna su URI para compartirla
     private Uri guardarImagenTemporal(Context context, Bitmap bitmap) {
         try {
             File cachePath = new File(context.getCacheDir(), "images");
@@ -130,8 +136,10 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         return recetas.size();
     }
 
+    // Metodo para guardar la receta en un archivo de texto y compartirla o abrirlo
     private void guardarArchivoTxt(Receta receta, Context context) {
         String nombreArchivo = "Receta_" + receta.getNombre().replace(" ", "_") + ".txt";
+        // Crear el contenido del archivo
         String contenido = "Nombre: " + receta.getNombre() + "\n\n" +
                 "Ingredientes:\n" + receta.getIngredientes() + "\n\n" +
                 "Pasos:\n" + receta.getPasos();
@@ -140,6 +148,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         Uri fileUri = null;
 
         try {
+            // Obtener el ContentResolver para insertar el archivo
             ContentResolver resolver = context.getContentResolver();
             ContentValues values = new ContentValues();
 
@@ -147,13 +156,14 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
             values.put(MediaStore.Downloads.MIME_TYPE, "text/plain");
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                // Guardar en la carpeta de Descargas
                 values.put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
-
                 fileUri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
                 if (fileUri != null) {
                     fos = resolver.openOutputStream(fileUri);
                 }
             } else {
+                // Para versiones anteriores, se utiliza el directorio público
                 File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), nombreArchivo);
                 fos = new FileOutputStream(file);
                 fileUri = Uri.fromFile(file);
@@ -163,7 +173,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
                 fos.write(contenido.getBytes());
                 fos.close();
 
-                // Mostrar notificación de descarga utilizando el método de NotificacionHelper
+                // Mostrar notificación de descarga utilizando el metodo de NotificacionHelper
                 NotificacionHelper.mostrarNotificacion(context);
 
                 // Abrir el archivo después de guardarlo
@@ -172,13 +182,14 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(context, "Error al guardar el archivo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.error_guardar_archivo), Toast.LENGTH_SHORT).show();
         }
     }
 
+    // Metodo para abrir el archivo de texto guardado
     private void abrirArchivo(Context context, Uri fileUri) {
         if (fileUri == null) {
-            Toast.makeText(context, "No se pudo abrir el archivo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.error_abrir_archivo), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -189,11 +200,11 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         try {
             context.startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(context, "No hay aplicación para abrir archivos de texto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.no_hay_aplicacion), Toast.LENGTH_SHORT).show();
         }
     }
 
-
+    // Metodo para filtrar las recetas según una consulta de búsqueda
     public void filter(String query) {
         recetas.clear();
         if (query.isEmpty()) {
@@ -205,8 +216,9 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
                 }
             }
         }
-        notifyDataSetChanged(); // Actualizar el RecyclerView con los resultados filtrados
+        notifyDataSetChanged();
     }
+    // Clase ViewHolder para mantener las referencias a las vistas de cada item
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivReceta;
         TextView tvNombre, tvIngredientes;
@@ -214,6 +226,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            // Asignar las vistas usando findViewById
             ivReceta = itemView.findViewById(R.id.iv_receta);
             tvNombre = itemView.findViewById(R.id.tv_nombre);
             tvIngredientes = itemView.findViewById(R.id.tv_ingredientes);

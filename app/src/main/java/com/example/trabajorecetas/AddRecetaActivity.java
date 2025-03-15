@@ -1,23 +1,18 @@
 package com.example.trabajorecetas;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import com.example.trabajorecetas.BaseDeDatos.ImageConverter;
 import com.example.trabajorecetas.BaseDeDatos.Receta;
 import com.example.trabajorecetas.BaseDeDatos.RecetaDatabase;
 
@@ -39,6 +34,7 @@ public class AddRecetaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_receta);
 
+        // Inicializar vistas
         etNombre = findViewById(R.id.et_nombre);
         etIngredientes = findViewById(R.id.et_ingredientes);
         etPasos = findViewById(R.id.et_pasos);
@@ -48,29 +44,41 @@ public class AddRecetaActivity extends AppCompatActivity {
         Button btnTomarFoto = findViewById(R.id.btn_tomar_foto);
         db = RecetaDatabase.getInstance(this);
 
+        // Configurar listeners de botones
+
+        // Abrir la camara para tomar una foto
         btnTomarFoto.setOnClickListener(v -> abrirCamara());
 
+        // Abrir la galeria para seleccionar una imagen
         btnSeleccionarImagen.setOnClickListener(v -> abrirGaleria());
 
+        // Guardar la receta
         btnGuardar.setOnClickListener(v -> guardarReceta());
 
+        // Volver a MainActivity
         Button btnVolver = findViewById(R.id.btnVolver);
         btnVolver.setOnClickListener(v -> {
-            // Volver a MainActivity
+            // Informar que la receta no se ha guardado
             Intent intent = new Intent(AddRecetaActivity.this, MainActivity.class);
             startActivity(intent);
-            finish();  // Cierra la actividad actual
+            // Cierra la actividad actual
+            finish();
         });
 
     }
 
+    // Abrir la galeria para seleccionar una imagen
     private void abrirGaleria() {
+        // Crear un intent para seleccionar una imagen de la galeria
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
+    // Abrir la camara para tomar una foto
     private void abrirCamara() {
+        // Crear un intent para tomar una foto con la camara
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Verificar si hay una app de cámara disponible
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }else{
@@ -80,10 +88,12 @@ public class AddRecetaActivity extends AppCompatActivity {
     }
 
 
+    // Obtener la imagen seleccionada de la galeria o la foto tomada con la camara
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // Caso 1: Selección desde galería exitosa
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             Uri imageUri = data.getData();
             try {
@@ -93,6 +103,7 @@ public class AddRecetaActivity extends AppCompatActivity {
                 e.printStackTrace();
                 Toast.makeText(this, getString(R.string.error_galeria), Toast.LENGTH_SHORT).show();
             }
+        // Caso 2: Foto tomada con cámara exitosamente
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -101,26 +112,33 @@ public class AddRecetaActivity extends AppCompatActivity {
         }
     }
 
-
+    // Valida y guarda la receta en la base de datos
     private void guardarReceta() {
         String nombre = etNombre.getText().toString().trim();
         String ingredientes = etIngredientes.getText().toString().trim();
         String pasos = etPasos.getText().toString().trim();
 
+        // Validar campos
         if (nombre.isEmpty() || ingredientes.isEmpty() || pasos.isEmpty()) {
             Toast.makeText(this, getString(R.string.rellenar_campos), Toast.LENGTH_SHORT).show();
             return;
         }
 
         byte[] imagenByteArray = null;
+        // Si se ha añadido una imagen se usa
         if (imagenBitmap != null) {
             imagenByteArray = ImageConverter.bitmapToByteArray(imagenBitmap);
+
+        // Si no se ha añadido una imagen se usa la imagen por defecto
         } else {
-            // Si no se seleccionó una imagen, se puede usar una imagen por defecto
-            BitmapDrawable drawable = (BitmapDrawable) ivImagen.getDrawable();
-            imagenByteArray = ImageConverter.bitmapToByteArray(drawable.getBitmap());
+            Bitmap defaultBitmap = ImageConverter.loadDefaultBitmap(
+                    getResources(),
+                    R.drawable.ic_placeholder
+            );
+            imagenByteArray = ImageConverter.bitmapToByteArray(defaultBitmap);
         }
 
+        // Guardar la receta en la base de datos
         Receta nuevaReceta = new Receta(nombre, ingredientes, pasos, imagenByteArray, false);
         new Thread(() -> {
             db.recetaDao().insertar(nuevaReceta);
@@ -128,8 +146,9 @@ public class AddRecetaActivity extends AppCompatActivity {
                 Toast.makeText(AddRecetaActivity.this, "Receta guardada", Toast.LENGTH_SHORT).show();
                 // Informar que la receta se ha guardado correctamente
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("receta_guardada", true); // Enviamos el estado de la receta guardada
+                resultIntent.putExtra("receta_guardada", true);
                 setResult(RESULT_OK, resultIntent);
+                // Cierra la actividad actual
                 finish();
             });
         }).start();

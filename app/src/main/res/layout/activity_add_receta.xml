@@ -65,9 +65,10 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_placeholder"
             android:contentDescription="Imagen de la receta" />
+
     </androidx.cardview.widget.CardView>
 
-    <!-- Contenedor horizontal para los botones de "Tomar Foto" y "Seleccionar Imagen" -->
+    <!-- Contenedor horizontal para los botones de "Tomar Foto" y "Elegir Imagen" -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -87,7 +88,7 @@
             android:textColor="?attr/colorOnSurface"
             android:textColorHint="?attr/colorOutline" />
 
-        <!-- Botón Seleccionar Imagen -->
+        <!-- Botón Elegir Imagen -->
         <Button
             android:id="@+id/btn_seleccionar_imagen"
             android:layout_width="wrap_content"
@@ -112,6 +113,7 @@
         android:textColor="?attr/colorOnSurface"
         android:textColorHint="?attr/colorOutline" />
 
+    <!-- Botón Volver -->
     <Button
         android:id="@+id/btnVolver"
         android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- string.xml para el ingles-->
     <string name="app_name"> Recipes</string>
     <string name="navigation_drawer_open">Open menu</string>
     <string name="navigation_drawer_close">Close menu</string>
@@ -22,6 +23,7 @@
     <string name="cambio_idioma">Language set to english</string>
     <string name="receta_eliminada">Recipe eliminated</string>
     <string name="receta_favoritos">Recipe in favourites</string>
+    <string name="receta_eliminada_favoritos">Recipe removed from favorites</string>
     <string name="error_camara">Error opening the camera</string>
     <string name="error_galeria">Error opening gallery</string>
     <string name="rellenar_campos">Fill in all fields</string>

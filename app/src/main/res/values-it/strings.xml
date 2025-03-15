@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- string.xml para el italiano-->
     <string name="app_name">Ricette</string>
     <string name="navigation_drawer_open">Apri il menu</string>
     <string name="navigation_drawer_close">Chiudi il menu</string>
@@ -22,6 +23,7 @@
     <string name="cambio_idioma">Lingua cambiata in italiano</string>
     <string name="receta_eliminada">Ricetta eliminata</string>
     <string name="receta_favoritos">Ricetta nei preferiti</string>
+    <string name="receta_eliminada_favoritos">Ricetta rimossa dai preferiti</string>
     <string name="error_camara">Errore nell aprire la fotocamera</string>
     <string name="error_galeria">Errore nell aprire la galleria</string>
     <string name="rellenar_campos">Compila tutti i campi</string>

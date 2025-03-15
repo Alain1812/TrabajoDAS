@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -69,22 +70,30 @@ public class MainActivity extends AppCompatActivity {
         // Configurar NavigationView
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(item -> {
+            // Manejar eventos de clic en los elementos del menú
+            // Idioma español
             if (item.getItemId() == R.id.nav_espanol) {
                 cambiarIdioma("es");
+            // Idioma inglés
             } else if (item.getItemId() == R.id.nav_ingles) {
                 cambiarIdioma("en");
+            // Idioma alemán
             } else if (item.getItemId() == R.id.nav_aleman) {
                 cambiarIdioma("de");
+            // Idioma francés
             } else if (item.getItemId() == R.id.nav_frances) {
                 cambiarIdioma("fr");
+            // Idioma italiano
             } else if (item.getItemId() == R.id.nav_italiano) {
                 cambiarIdioma("it");
+            // Idioma euskera
             } else if (item.getItemId() == R.id.nav_euskera) {
                 cambiarIdioma("eu");
             } else {
                 return false;
             }
-            drawerLayout.closeDrawers(); // Cierra el menú después de seleccionar
+            // Cierra el menú después de seleccionar
+            drawerLayout.closeDrawers();
             return true;
         });
 
@@ -106,28 +115,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // Metodo para cargar las recetas
     private void cargarRecetas(boolean soloFavoritas) {
         new Thread(() -> {
             if (soloFavoritas) {
                 listaRecetas = db.recetaDao().obtenerFavoritas();
                 runOnUiThread(() -> {
-                    Toast.makeText(MainActivity.this, getString(R.string.listado_recetas_favoritas), Toast.LENGTH_SHORT).show();
+                    TextView tituloLista = findViewById(R.id.textTituloLista);
+                    if (tituloLista != null) {
+                        tituloLista.setText(R.string.listado_recetas_favoritas);
+                    }
                 });
             } else {
                 listaRecetas = db.recetaDao().obtenerTodas();
                 runOnUiThread(() -> {
-                    Toast.makeText(MainActivity.this, getString(R.string.listado_recetas), Toast.LENGTH_SHORT).show();
-                });            }
+                    TextView tituloLista = findViewById(R.id.textTituloLista);
+                    if (tituloLista != null) {
+                        tituloLista.setText(R.string.listado_recetas);
+                    }
+                });
+            }
 
             runOnUiThread(() -> {
+                // Configuración del adaptador con listeners
                 adapter = new RecetaAdapter(listaRecetas, new RecetaAdapter.OnItemClickListener() {
+                    // Accion editar receta
                     @Override
                     public void onEditar(Receta receta) {
                         Intent intent = new Intent(MainActivity.this, EditarRecetaActivity.class);
                         intent.putExtra("receta_id", receta.getId());
                         startActivityForResult(intent, EDITAR_RECETA_REQUEST);
                     }
-
+                    // Accion borrar receta
                     @Override
                     public void onBorrar(Receta receta) {
                         // Crear y mostrar el diálogo para confirmar la eliminación de la receta
@@ -148,15 +167,16 @@ public class MainActivity extends AppCompatActivity {
                         borrarDialog.show(getSupportFragmentManager(), "BorrarRecetaDialog");
                     }
 
-
+                    // Accion marcar como favoirita
                     @Override
                     public void onFavorito(Receta receta) {
                         new Thread(() -> {
+                            boolean nuevoEstado = !receta.isFavorita();
                             receta.setFavorita(!receta.isFavorita());
                             db.recetaDao().actualizar(receta);
                             runOnUiThread(() -> {
-                                Toast.makeText(MainActivity.this, getString(R.string.receta_favoritos), Toast.LENGTH_SHORT).show();
-                                cargarRecetas(soloFavoritas); // Recargar después de modificar favorito
+                                // Recargar después de modificar favorito
+                                cargarRecetas(soloFavoritas);
                             });
                         }).start();
                     }
@@ -166,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-
+    // Metodo para actualizar la lista de recetas al añadir o editar una receta
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -179,9 +199,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Metodo para crear el menú de la toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        actualizarIconosMenu(menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) searchItem.getActionView(); // Asegúrate de usar la clase correcta aquí
 
@@ -202,28 +224,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // Metodo para añadir una receta
     private void anadirReceta() {
         Intent intent = new Intent(MainActivity.this, AddRecetaActivity.class);
         startActivityForResult(intent, AÑADIR_RECETA_REQUEST);
     }
 
+    // Metodo para alternar entre modo claro y oscuro
     private void alternarModo() {
         int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
         if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            Toast.makeText(this, getString(R.string.Modo_claro), Toast.LENGTH_SHORT).show();
-
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            Toast.makeText(this, getString(R.string.Modo_oscuro), Toast.LENGTH_SHORT).show();
-
         }
+
         Intent intent = getIntent();
         finish();
         startActivity(intent);
     }
 
+    // Metodo para cambiar el idioma de la aplicación
     private void cambiarIdioma(String idioma) {
         Locale locale = new Locale(idioma);
         Locale.setDefault(locale);
@@ -238,26 +260,59 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // Metodo para actualizar los iconos del menú en función de modo claro u oscuro
+    private void actualizarIconosMenu(Menu menu) {
+        boolean isNightMode = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                == Configuration.UI_MODE_NIGHT_YES;
+
+        // Ícono de "Todas las recetas"
+        MenuItem itemTodas = menu.findItem(R.id.action_todas);
+        itemTodas.setIcon(isNightMode ? R.drawable.ic_todas : R.drawable.ic_todas_dia);
+
+        // Ícono de "Favoritas"
+        MenuItem itemFavoritas = menu.findItem(R.id.action_favoritas);
+        itemFavoritas.setIcon(isNightMode ? R.drawable.ic_favorito : R.drawable.ic_favorito_dia);
+
+        // Ícono de "Añadir receta"
+        MenuItem itemAgregar = menu.findItem(R.id.action_agregar);
+        itemAgregar.setIcon(isNightMode ? R.drawable.ic_anadir : R.drawable.ic_anadir_dia);
+
+        // Ícono del botón de tema (cambia a su opuesto)
+        MenuItem itemTema = menu.findItem(R.id.action_tema);
+        itemTema.setIcon(isNightMode ? R.drawable.ic_claro : R.drawable.ic_oscuro);
+
+        // Ícono de "Salir"
+        MenuItem itemSalir = menu.findItem(R.id.action_salir);
+        itemSalir.setIcon(isNightMode ? R.drawable.ic_salir : R.drawable.ic_salir_dia);
+    }
+
+    // Metodo para manejar las acciones de los elementos del toolbar
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
+        // Opcion toolbar todas las recetas
         if (id == R.id.action_todas) {
             cargarRecetas(false);
             return true;
+        // Opcion toolbar recetas favoritas
         } else if (id == R.id.action_favoritas) {
             cargarRecetas(true);
             return true;
+        // Opcion toolbar añadir receta
         } else if (id == R.id.action_agregar) {
             anadirReceta();
             return true;
+        // Opcion toolbar tema
         } else if (id == R.id.action_tema) {
             alternarModo();
             return true;
+        // Opcion toolbar salir
         } else if (id == R.id.action_salir) {
             SalirDialog salirDialogo = new SalirDialog();
             salirDialogo.show(getSupportFragmentManager(), "SalirDialogo");
             return true;
+        // Opcion toolbar salir
         } else if (id == android.R.id.home) {
             // Abrir o cerrar el Navigation Drawer
             if (drawerLayout.isDrawerOpen(navigationView)) {

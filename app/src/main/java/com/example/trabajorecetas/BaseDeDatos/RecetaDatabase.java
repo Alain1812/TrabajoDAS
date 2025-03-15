@@ -10,6 +10,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.trabajorecetas.ImageConverter;
 import com.example.trabajorecetas.R;
 
 @Database(entities = {Receta.class}, version = 1, exportSchema = false)
@@ -25,6 +26,7 @@ public abstract class RecetaDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     RecetaDatabase.class, "receta_db")
                             .allowMainThreadQueries()
+                            // Añadir datos iniciales
                             .addCallback(new Callback() {
                                 @Override
                                 public void onCreate(@NonNull SupportSQLiteDatabase db) {

@@ -2,47 +2,54 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- Botones de la toolbar -->
+    <!-- Botón de búsqueda -->
     <item
         android:id="@+id/action_search"
         android:title="Buscar"
         android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:itemIconTint="?attr/colorControlNormal"/>
+        android:tint="@color/iconColor"/>
 
+    <!-- Botón para mostrar todas las recetas -->
     <item
         android:id="@+id/action_todas"
         android:title="Todas las recetas"
         android:icon="@drawable/ic_todas"
         app:showAsAction="always"
-        app:itemIconTint="?attr/colorControlNormal"/>
+        android:tint="@color/iconColor"/>
 
+    <!-- Botón para mostrar solo las recetas favoritas -->
     <item
         android:id="@+id/action_favoritas"
         android:title="Favoritas"
         android:icon="@drawable/ic_favorito"
         app:showAsAction="always"
-        app:itemIconTint="?attr/colorControlNormal"/>
+        android:tint="@color/iconColor"/>
 
+    <!-- Botón para añadir una receta -->
     <item
         android:id="@+id/action_agregar"
         android:title="Añadir receta"
         android:icon="@drawable/ic_anadir"
         app:showAsAction="always"
-        app:itemIconTint="?attr/colorControlNormal"/>
+        android:tint="@color/iconColor"/>
 
+    <!-- Botón para alternar entre modo claro y oscuro -->
     <item
         android:id="@+id/action_tema"
         android:title="Modo Oscuro"
         android:icon="@drawable/ic_oscuro"
         app:showAsAction="always"
-        app:itemIconTint="?attr/colorControlNormal"/>
+        android:tint="@color/iconColor"/>
 
+    <!-- Botón para salir de la aplicacion -->
     <item
         android:id="@+id/action_salir"
         android:icon="@drawable/ic_salir"
         android:title="Salir"
         app:showAsAction="always"
-        app:itemIconTint="?attr/colorControlNormal"/>
+        android:tint="@color/iconColor"/>
 
 </menu>

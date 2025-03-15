@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- string.xml para el español-->
     <string name="app_name"> Recetas</string>
     <string name="navigation_drawer_open">Abrir menú</string>
     <string name="navigation_drawer_close">Cerrar menú</string>
@@ -21,6 +23,7 @@
     <string name="cambio_idioma">Idioma cambiado a español</string>
     <string name="receta_eliminada">Receta eliminada</string>
     <string name="receta_favoritos">Receta en favoritos</string>
+    <string name="receta_eliminada_favoritos">Receta eliminada de favoritos</string>
     <string name="error_camara">Error al abrir la cámara</string>
     <string name="error_galeria">Error al abrir la galería</string>
     <string name="rellenar_campos">Rellena todos los campos</string>
@@ -34,6 +37,9 @@
     <string name="frances">Francés</string>
     <string name="italiano">Italiano</string>
     <string name="euskera">Euskera</string>
+    <string name="error_guardar_archivo">Error al guardar el archivo</string>
+    <string name="error_abrir_archivo">Error al abrir el archivo</string>
+    <string name="no_hay_aplicacion">No hay aplicación para abrir el archivo</string>
 
 
 </resources>
