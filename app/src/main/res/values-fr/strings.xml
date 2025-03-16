@@ -12,7 +12,7 @@
     <string name="titulo_salir">Confirmer la sortie</string>
     <string name="mensaje_salir">Êtes-vous sûr de vouloir quitter l application ?</string>
     <string name="Nombre_receta">Nom de la recette</string>
-    <string name="Ingredientes">Ingrédients</string>
+    <string name="Ingredientes">Ingrédients de la recette</string>
     <string name="Pasos">Étapes de la recette</string>
     <string name="Tomar_foto">Prendre une photo</string>
     <string name="Elegir_imagen">Choisir une image</string>

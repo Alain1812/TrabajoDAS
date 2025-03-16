@@ -2,8 +2,11 @@ package com.example.trabajorecetas;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AlertDialog;
 
@@ -50,8 +53,22 @@ public class BorrarRecetaDialog extends DialogFragment {
                     }
                 });
 
-        // Construye y devuelve el diálogo configurado
-        return builder.create();
+        AlertDialog dialog = builder.create();
+
+        // Cambiar el color de los botones cuando el diálogo se muestre
+        dialog.setOnShowListener(dialogInterface -> {
+            Button botonSiView = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            Button botonNoView = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+            // Obtener color desde colors.xml
+            int colorTexto = ContextCompat.getColor(requireContext(), R.color.textLight);
+
+            // Aplicar color a los botones
+            botonSiView.setTextColor(colorTexto);
+            botonNoView.setTextColor(colorTexto);
+        });
+
+        return dialog;
     }
 
     // Setter para el listener

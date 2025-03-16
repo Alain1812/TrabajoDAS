@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- string.xml para el español-->
-    <string name="app_name"> Recetas</string>
+    <string name="app_name">Recetas</string>
     <string name="navigation_drawer_open">Abrir menú</string>
     <string name="navigation_drawer_close">Cerrar menú</string>
     <string name="foto">Tomar foto</string>
@@ -12,7 +12,7 @@
     <string name="titulo_salir">Confirmar salida</string>
     <string name="mensaje_salir">¿Estás seguro de que deseas salir?</string>
     <string name="Nombre_receta">Nombre de la receta</string>
-    <string name="Ingredientes">Ingredientes</string>
+    <string name="Ingredientes">Ingredientes de la receta</string>
     <string name="Pasos">Pasos de la receta</string>
     <string name="Tomar_foto">Tomar foto</string>
     <string name="Elegir_imagen">Elegir imagen</string>

@@ -12,7 +12,7 @@
     <string name="titulo_salir">Bestätigung des Verlassens</string>
     <string name="mensaje_salir">Bist du sicher, dass du die App verlassen möchtest?</string>
     <string name="Nombre_receta">Rezeptname</string>
-    <string name="Ingredientes">Zutaten</string>
+    <string name="Ingredientes">Rezeptzutaten</string>
     <string name="Pasos">Schritte des Rezepts</string>
     <string name="Tomar_foto">Foto aufnehmen</string>
     <string name="Elegir_imagen">Bild auswählen</string>

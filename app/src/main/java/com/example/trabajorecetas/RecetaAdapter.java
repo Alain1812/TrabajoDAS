@@ -81,11 +81,10 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         holder.btnFavorito.setOnClickListener(v -> listener.onFavorito(receta));
         // Boton compartir
         holder.btnCompartir.setOnClickListener(v -> {
-            String mensaje = "¡Mira esta receta!\n\n" +
-                    "🍽️ *" + receta.getNombre() + "*\n\n" +
-                    "📝 Ingredientes:\n" + receta.getIngredientes() + "\n\n" +
-                    "📖 Pasos:\n" + receta.getPasos();
-
+            String mensaje ="🍽️" + R.string.Nombre_receta + receta.getNombre() + "*\n\n" +
+                    "📝" + R.string.Ingredientes + ":\n" + receta.getIngredientes() + "\n\n" +
+                    "📖" + R.string.Pasos + ":\n" + receta.getPasos();
+                    
             Uri imagenUri = guardarImagenTemporal(v.getContext(), imagen);
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("image/*");

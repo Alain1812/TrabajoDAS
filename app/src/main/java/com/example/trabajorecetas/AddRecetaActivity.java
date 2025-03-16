@@ -44,6 +44,15 @@ public class AddRecetaActivity extends AppCompatActivity {
         Button btnTomarFoto = findViewById(R.id.btn_tomar_foto);
         db = RecetaDatabase.getInstance(this);
 
+        // Restaurar imagen si hay un estado guardado
+        if (savedInstanceState != null) {
+            byte[] imagenBytes = savedInstanceState.getByteArray("imagen");
+            if (imagenBytes != null) {
+                imagenBitmap = ImageConverter.byteArrayToBitmap(imagenBytes);
+                ivImagen.setImageBitmap(imagenBitmap);
+            }
+        }
+
         // Configurar listeners de botones
 
         // Abrir la camara para tomar una foto
@@ -88,7 +97,6 @@ public class AddRecetaActivity extends AppCompatActivity {
     }
 
 
-    // Obtener la imagen seleccionada de la galeria o la foto tomada con la camara
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -97,20 +105,32 @@ public class AddRecetaActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             Uri imageUri = data.getData();
             try {
-                imagenBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                ivImagen.setImageBitmap(imagenBitmap);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                ivImagen.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(this, getString(R.string.error_galeria), Toast.LENGTH_SHORT).show();
             }
-        // Caso 2: Foto tomada con cámara exitosamente
+            // Caso 2: Foto tomada con cámara exitosamente
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             ivImagen.setImageBitmap(imageBitmap);
-            this.imagenBitmap = imageBitmap;
         }
     }
+
+
+    // Evita perder datos de la receta mientras se esta creando
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (imagenBitmap != null) {
+            byte[] imagenBytes = ImageConverter.bitmapToByteArray(imagenBitmap);
+            outState.putByteArray("imagen", imagenBytes);
+        }
+    }
+
 
     // Valida y guarda la receta en la base de datos
     private void guardarReceta() {

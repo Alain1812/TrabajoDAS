@@ -12,7 +12,7 @@
     <string name="titulo_salir">Irteera baieztatu</string>
     <string name="mensaje_salir">Ziur al zaude aplikazioa itxi nahi duzula?</string>
     <string name="Nombre_receta">Errezetaren izena</string>
-    <string name="Ingredientes">Osagaiak</string>
+    <string name="Ingredientes">Errezetaren osagaiak</string>
     <string name="Pasos">Errezetaren pausoak</string>
     <string name="Tomar_foto">Argazkia hartu</string>
     <string name="Elegir_imagen">Irudi bat hautatu</string>
