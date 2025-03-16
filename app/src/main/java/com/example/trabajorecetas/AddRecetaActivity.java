@@ -101,24 +101,23 @@ public class AddRecetaActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Caso 1: Selección desde galería exitosa
+        // Imagen en galeria
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             Uri imageUri = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                ivImagen.setImageBitmap(bitmap);
+                imagenBitmap = ImageConverter.decodeSampledBitmapFromUri(this, imageUri, 800, 800);
+                ivImagen.setImageBitmap(imagenBitmap);
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(this, getString(R.string.error_galeria), Toast.LENGTH_SHORT).show();
             }
-            // Caso 2: Foto tomada con cámara exitosamente
+        // Imagen tomada con la camara
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ivImagen.setImageBitmap(imageBitmap);
+            imagenBitmap = (Bitmap) extras.get("data");
+            ivImagen.setImageBitmap(imagenBitmap);
         }
     }
-
 
     // Evita perder datos de la receta mientras se esta creando
     @Override
@@ -149,7 +148,7 @@ public class AddRecetaActivity extends AppCompatActivity {
         if (imagenBitmap != null) {
             imagenByteArray = ImageConverter.bitmapToByteArray(imagenBitmap);
 
-        // Si no se ha añadido una imagen se usa la imagen por defecto
+            // Si no se ha añadido una imagen se usa la imagen por defecto
         } else {
             Bitmap defaultBitmap = ImageConverter.loadDefaultBitmap(
                     getResources(),

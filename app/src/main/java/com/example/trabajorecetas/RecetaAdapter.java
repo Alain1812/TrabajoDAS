@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ResourceBundle;
 
 import com.example.trabajorecetas.BaseDeDatos.Receta;
 
@@ -81,9 +82,9 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         holder.btnFavorito.setOnClickListener(v -> listener.onFavorito(receta));
         // Boton compartir
         holder.btnCompartir.setOnClickListener(v -> {
-            String mensaje ="🍽️" + R.string.Nombre_receta + receta.getNombre() + "*\n\n" +
-                    "📝" + R.string.Ingredientes + ":\n" + receta.getIngredientes() + "\n\n" +
-                    "📖" + R.string.Pasos + ":\n" + receta.getPasos();
+            String mensaje ="🍽️" + ":\n" +receta.getNombre() + "*\n\n" +
+                    "📝" + ":\n" +receta.getIngredientes() + "\n\n" +
+                    "📖" + ":\n" + receta.getPasos();
                     
             Uri imagenUri = guardarImagenTemporal(v.getContext(), imagen);
             Intent intent = new Intent(Intent.ACTION_SEND);

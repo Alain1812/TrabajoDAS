@@ -142,7 +142,7 @@ public class EditarRecetaActivity extends AppCompatActivity {
         } else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
             Uri imageUri = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                Bitmap bitmap = ImageConverter.decodeSampledBitmapFromUri(this, imageUri, 800, 800);
                 ivImagen.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
